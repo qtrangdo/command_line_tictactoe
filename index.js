@@ -10,6 +10,14 @@ TicTacToe.prototype.switchPlayer = function() {
   this.currentPlayer = this.currentPlayer === 'x' ? 'o' : 'x';
 }
 
+TicTacToe.prototype.promptPlayerMove = function() {
+  var move; 
+  do {
+    move = prompt.question(`Player ${this.currentPlayer}, it's your turn! Please choose a move (1-9): `);
+  } while(!this.checkValidMove(move));
+  return this.convertToRowCol(move);
+}
+
 TicTacToe.prototype.checkValidMove = function(move) {
   move = Number(move);
   if(move > 9 || move < 1) {
