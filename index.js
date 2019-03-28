@@ -24,5 +24,16 @@ TicTacToe.prototype.checkValidMove = function(move) {
   } else return true;
 }
 
+TicTacToe.prototype.isPositionOccupied = function(move) {
+  var {row, col} = this.convertToRowCol(move);
+  return typeof this.board[row][col] === 'string';
+}
+
+TicTacToe.prototype.convertToRowCol = function(move) {
+  var row = Math.floor((move - 1)/3);
+  var col = (move - 1) % 3;
+  return {row, col};
+}
+
 var game = new TicTacToe();
 game.play();
