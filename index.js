@@ -35,5 +35,34 @@ TicTacToe.prototype.convertToRowCol = function(move) {
   return {row, col};
 }
 
+TicTacToe.prototype.isWin = function() {
+  if (this.isRowWin() || this.isColWin() || this.isDiagonalWin()) {
+    return true;
+  }
+  return false;
+}
+
+TicTacToe.prototype.isRowWin = function() {
+  for (let row of this.board) {
+    if (row[0] === row[1] === row[2]) return true;
+  }
+  return false;
+}
+
+TicTacToe.prototype.isColWin = function() {
+  for (let col of this.board[0]) {
+    if(this.board[0][col] === this.board[1][col] === this.board[2][col]) return true;
+  }
+  return false;
+}
+
+TicTacToe.prototype.isDiagonalWin = function() {
+  if ((this.board[0][0] === this.board[1][1] === this.board[2][2]) || 
+      (this.board[0][2] === this.board[1][1] === this.board[2][0])) {
+        return true;
+  }
+  return false;
+}
+
 var game = new TicTacToe();
 game.play();
