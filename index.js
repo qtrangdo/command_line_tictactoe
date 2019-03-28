@@ -6,6 +6,14 @@ const TicTacToe = function() {
   this.moves = 0
 }
 
+TicTacToe.prototype.printBoard = function() {
+  console.log(`${this.board[0][0]} | ${this.board[0][1]} | ${this.board[0][2]}`);
+  console.log('__________________')
+  console.log(`${this.board[1][0]} | ${this.board[1][1]} | ${this.board[1][2]}`);
+  console.log('__________________')
+  console.log(`${this.board[2][0]} | ${this.board[2][1]} | ${this.board[2][2]}`);
+}
+
 TicTacToe.prototype.switchPlayer = function() {
   this.currentPlayer = this.currentPlayer === 'x' ? 'o' : 'x';
 }
@@ -16,6 +24,11 @@ TicTacToe.prototype.promptPlayerMove = function() {
     move = prompt.question(`Player ${this.currentPlayer}, it's your turn! Please choose a move (1-9): `);
   } while(!this.checkValidMove(move));
   return this.convertToRowCol(move);
+}
+
+TicTacToe.prototype.placeMove = function(row, col) {
+  this.board[row][col] = this.currentPlayer;
+  this.moves++;
 }
 
 TicTacToe.prototype.checkValidMove = function(move) {
@@ -37,11 +50,6 @@ TicTacToe.prototype.isPositionOccupied = function(move) {
   return typeof this.board[row][col] === 'string';
 }
 
-TicTacToe.prototype.convertToRowCol = function(move) {
-  var row = Math.floor((move - 1)/3);
-  var col = (move - 1) % 3;
-  return {row, col};
-}
 
 TicTacToe.prototype.isWin = function() {
   if (this.isRowWin() || this.isColWin() || this.isDiagonalWin()) {
