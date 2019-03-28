@@ -80,5 +80,9 @@ TicTacToe.prototype.isDiagonalWin = function() {
   return false;
 }
 
+TicTacToe.prototype.isDraw = function() {
+  return this.moves === 9;
+}
+
 var game = new TicTacToe();
 game.play();
