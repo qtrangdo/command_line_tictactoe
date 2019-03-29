@@ -12,6 +12,7 @@ TicTacToe.prototype.printBoard = function() {
   console.log(`${this.board[1][0]} | ${this.board[1][1]} | ${this.board[1][2]}`);
   console.log('----------')
   console.log(`${this.board[2][0]} | ${this.board[2][1]} | ${this.board[2][2]}`);
+  console.log('')
 }
 
 TicTacToe.prototype.switchPlayer = function() {
@@ -59,6 +60,7 @@ TicTacToe.prototype.isPositionOccupied = function(move) {
 
 TicTacToe.prototype.isWin = function() {
   if (this.isRowWin() || this.isColWin() || this.isDiagonalWin()) {
+    console.log('winning')
     return true;
   }
   return false;
@@ -66,21 +68,21 @@ TicTacToe.prototype.isWin = function() {
 
 TicTacToe.prototype.isRowWin = function() {
   for (let row of this.board) {
-    if (row[0] === row[1] === row[2]) return true;
+    if (row[0] === row[1] &&  row[1] === row[2]) return true;
   }
   return false;
 }
 
 TicTacToe.prototype.isColWin = function() {
-  for (let col of this.board[0]) {
-    if(this.board[0][col] === this.board[1][col] === this.board[2][col]) return true;
+  for (let i = 0; i <3 ; i++) {
+    if(this.board[0][i] === this.board[1][i] && this.board[1][i] === this.board[2][i]) return true;
   }
   return false;
 }
 
 TicTacToe.prototype.isDiagonalWin = function() {
-  if ((this.board[0][0] === this.board[1][1] === this.board[2][2]) || 
-      (this.board[0][2] === this.board[1][1] === this.board[2][0])) {
+  if ((this.board[0][0] === this.board[1][1] && this.board[1][1] === this.board[2][2]) || 
+      (this.board[0][2] === this.board[1][1] && this.board[1][1] === this.board[2][0])) {
         return true;
   }
   return false;
@@ -95,8 +97,10 @@ TicTacToe.prototype.play = function() {
   var {row, col} = this.promptPlayerMove();
   this.placeMove(row, col);
   if(this.isWin()) {
+    this.printBoard();
     console.log(`Congratulations, ${this.currentPlayer}, you've won!`)
   } else if(this.isDraw()) {
+    this.printBoard();
     console.log('The game is a draw. Good game!')
   } else {
     this.switchPlayer();
